@@ -1,22 +1,10 @@
-import sys, argparse, csv
-import pytest
-import time
-import json
-import selenium
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import csv
+import undetected_chromedriver as uc
 
 
 class Login:
     def setup_method(self, method):
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])
-        self.driver = webdriver.Chrome(chrome_options)
+        self.driver = uc.Chrome()
         self.vars = {}
 
     def login(self):
@@ -34,8 +22,9 @@ class Login:
     def execute_login(self, email, password):
         self.driver.get("https://nft.dcuniverse.com/purchase")
         self.driver.set_window_size(1634, 914)
-        self.driver.find_element(By.ID, "email").click()
+        self.driver.find_element_by_id("email").click()
         self.driver.send_keys(email)
-        self.driver.find_element(By.ID, "password").click()
+        self.driver.find_element_by_id("password").click()
         self.driver.send_keys(password)
-        self.driver.find_element(By.CSS_SELECTOR, "button.chakra-button").click()
+        self.driver.find_element_by_css_selector("button.chakra-button").click()
+
